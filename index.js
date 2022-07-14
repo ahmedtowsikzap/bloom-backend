@@ -16,6 +16,12 @@ connect(
 });
 
 
-app.listen(5000, ()=>{
+app.get("/api/test", () => {
+    console.log("test suceesful")
+})
+
+
+
+app.listen(process.env.PORT || 5000, ()=>{
     console.log("backend runnnig")
 })
