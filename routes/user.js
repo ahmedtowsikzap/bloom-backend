@@ -44,5 +44,16 @@ router.get("/find/:id" , verifyTokenAndAdmin , async (req,res) => {
     }catch(err){
         res.status(500).json(err)
     }
-})
+});
+// GET All Users
+
+router.get("/" , verifyTokenAndAdmin , async (req,res) => {
+   const query = req.query.new
+    try{
+        const users = query ?  await user.find().sort({_id: -1}).limit(6) :  await User.find()
+        res.status(200).json(users);
+    }catch(err){
+        res.status(500).json(err)
+    }
+});
 module.exports = router
