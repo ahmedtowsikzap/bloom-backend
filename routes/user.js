@@ -3,6 +3,9 @@ const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
 
 const router = require("express").Router();
 
+
+// UPDATE 
+
 router.put("/:id",  verifyTokenAndAuthorization,  async (req, res)=>{
   
     if(req.body.password){
@@ -16,6 +19,18 @@ router.put("/:id",  verifyTokenAndAuthorization,  async (req, res)=>{
        }, {new:true})
        res.status(200).json(updatedUser)
     }catch(err){res.status(500).json(err)}
+});
+
+// DELETE
+
+router.delete("./:id" , verifyTokenAndAuthorization , async (req,res) => {
+
+    try{
+        await User.findByIdAndDelete(req.params.id)
+        res.status(200).json("The user has been Deleted!")
+    }catch(err){
+        res.status(500).json(err)
+    }
 })
 
 module.exports = router
