@@ -43,15 +43,25 @@ router.delete("/:id", verifyTokenAndAuthorization , async (req,res) => {
     }
 });
 
-// Get USER CART 
-router.get("/find/:id", verifyTokenAndAuthorization,  async (req,res) => {
-
-    try{
-        const product = await Product.findById(req.params.id)
-        res.status(200).json(product);
-    }catch(err){
-        res.status(500).json(err)
+//GET USER CART
+router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
+    try {
+      const cart = await Cart.findOne({ userId: req.params.userId });
+      res.status(200).json(cart);
+    } catch (err) {
+      res.status(500).json(err);
     }
-});
+  });
   
+  // //GET ALL USERCART 
+
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+    try {
+      const carts = await Cart.find();
+      res.status(200).json(carts);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
 module.exports = router
