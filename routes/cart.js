@@ -30,5 +30,28 @@ router.put("/:id",  verifyTokenAndAuthorization,  async (req, res) => {
        res.status(200).json(updatedCart)
     }catch(err){res.status(500).json(err)}
 });
+
+// DELETE
+
+router.delete("/:id", verifyTokenAndAuthorization , async (req,res) => {
+
+    try{
+        await Cart.findByIdAndDelete(req.params.id)
+        res.status(200).json("Cart has been cleared!")
+    }catch(err){
+        res.status(500).json(err)
+    }
+});
+
+// Get USER CART 
+router.get("/find/:id", verifyTokenAndAuthorization,  async (req,res) => {
+
+    try{
+        const product = await Product.findById(req.params.id)
+        res.status(200).json(product);
+    }catch(err){
+        res.status(500).json(err)
+    }
+});
   
 module.exports = router
