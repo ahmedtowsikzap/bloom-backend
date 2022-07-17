@@ -44,7 +44,7 @@ router.delete("/:id", verifyTokenAndAdmin , async (req,res) => {
     }
 })
 
-// GET USER
+// GET product
 
 router.get("/find/:id", async (req,res) => {
 
