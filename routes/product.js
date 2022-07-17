@@ -34,7 +34,7 @@ router.put("/:id",  verifyTokenAndAdmin,  async (req, res) => {
 
 // DELETE
 
-router.delete("/:id" , verifyTokenAndAdmin , async (req,res) => {
+router.delete("/:id", verifyTokenAndAdmin , async (req,res) => {
 
     try{
         await Product.findByIdAndDelete(req.params.id)
@@ -46,12 +46,11 @@ router.delete("/:id" , verifyTokenAndAdmin , async (req,res) => {
 
 // GET USER
 
-router.get("/find/:id" , verifyTokenAndAdmin , async (req,res) => {
+router.get("/find/:id", async (req,res) => {
 
     try{
-        const user = await User.findById(req.params.id)
-        const {password, ...others} = user._doc;
-        res.status(200).json(others);
+        const product = await Product.findById(req.params.id)
+        res.status(200).json(product);
     }catch(err){
         res.status(500).json(err)
     }
